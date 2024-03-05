@@ -1,6 +1,6 @@
 package org.example.rocksdb.repository;
 
-public interface KeyValueRepository <K,V>{
+public interface KeyValueRepository<K, V> {
 
   void save(K key, V value);
 

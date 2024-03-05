@@ -1,6 +1,7 @@
 package org.example.rocksdb.conf;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -41,6 +42,11 @@ public class RocksDbInitializer {
   @Bean
   public RocksDB rocksDB() {
     return this.db;
+  }
+
+  @PreDestroy
+  void destory() {
+    db.close();
   }
 
 }

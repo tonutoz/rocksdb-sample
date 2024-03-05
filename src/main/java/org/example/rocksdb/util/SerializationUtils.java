@@ -8,7 +8,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.example.rocksdb.model.UserDto;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SerializationUtils {

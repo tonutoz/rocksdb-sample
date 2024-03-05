@@ -3,6 +3,8 @@ package org.example.rocksdb.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.rocksdb.model.User;
+import org.example.rocksdb.service.RocksDbService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,25 +20,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class RocksApi {
 
+  private final RocksDbService dbService;
+
   @PostMapping("/{key}")
-  public ResponseEntity<String> save(@PathVariable("key") String key, @RequestBody String value) {
+  public ResponseEntity<?> save(@PathVariable("key") String key, @RequestBody User request) {
     log.info("RocksApi.save");
-    rocksDB.save(key, value);
-    return ResponseEntity.ok(value);
+    return ResponseEntity.ok(dbService.addData(key,request));
   }
 
   @GetMapping("/{key}")
-  public ResponseEntity<String> find(@PathVariable("key") String key) {
+  public ResponseEntity<?> find(@PathVariable("key") String key) {
     log.info("RocksApi.find");
-    String result = rocksDB.find(key);
-    if(result == null) return ResponseEntity.noContent().build();
-    return ResponseEntity.ok(result);
+    User result = dbService.getData(key);
+    return result ==null ? ResponseEntity.noContent().build() : ResponseEntity.ok(result);
   }
 
   @DeleteMapping("/{key}")
-  public ResponseEntity<String> delete(@PathVariable("key") String key) {
+  public ResponseEntity<?> delete(@PathVariable("key") String key) {
     log.info("RocksApi.delete");
-    rocksDB.delete(key);
     return ResponseEntity.ok(key);
   }
 
