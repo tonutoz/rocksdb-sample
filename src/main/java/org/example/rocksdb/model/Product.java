@@ -11,18 +11,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-public class User implements Serializable {
+public class Product implements Serializable {
 
   private String id;
 
   private String name;
 
-  private int age;
+  private double price;
+
+  private int stock;
 
   @Builder
-  public User(String id, String name, int age) {
+  public Product(String id, String name, double price, int stock) {
     this.id = id;
     this.name = name;
-    this.age = age;
+    this.price = price;
+    this.stock = stock;
   }
 }
